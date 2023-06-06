@@ -1,5 +1,5 @@
 -- http-guard安装目录，修改为实际安装到的目录。
-baseDir = '/data/www/waf/'
+baseDir = '/opt/bitnami/nginx/HttpGuard/'
 
 local Config = {
 	-- key是否动态生成,可选static,dynamic,如果选dynamic,下面所有的keySecret不需要更改,如果选static,修改手动修改下面的keySecret
@@ -17,7 +17,7 @@ local Config = {
 	-- verifyMaxFail  amongTime : 因为此模块会发送带有cckey及keyexpire的302响应头，如果访客在amongTime时间内超过verifyMaxFail次没有跳转到302响应头里的url，就会被添加到黑名单，默认值为5次。
 	-- keySecret : 用于生成token的密码,如果上面的keyDefine为dynamic，就不需要修改
 	-- urlProtect  同limitReqModules模块中的urlProtect的解释。
-	redirectModules = { state = "Off" ,verifyMaxFail = 5, keySecret = 'yK48J276hg', amongTime = 60 ,urlProtect = baseDir.."url-protect/302.txt"},
+	redirectModules = { state = "On" ,verifyMaxFail = 5, keySecret = 'yK48J276hg', amongTime = 60 ,urlProtect = baseDir.."url-protect/302.txt"},
 
 
 	-- 主动防御,发送js跳转代码模块。利用cc控制端无法解析js跳转的特点，来识别是否为正常用户，当有必要时才建议开启。
@@ -25,7 +25,7 @@ local Config = {
 	-- verifyMaxFail  amongTime : 因为此模块会发送带有js跳转代码的响应体，如果访客在amongTime时间内超过verifyMaxFail次没有跳转到js跳转代码里的url，就会被添加到黑名单，默认值为5次。
 	-- keySecret : 用于生成token的密码,如果上面的keyDefine为dynamic，就不需要修改
 	-- urlProtect  同limitReqModules模块中的urlProtect的解释。
-	JsJumpModules = { state = "Off" ,verifyMaxFail = 5, keySecret = 'QSjL6p38h9', amongTime = 60 , urlProtect = baseDir.."url-protect/js.txt"},
+	JsJumpModules = { state = "On" ,verifyMaxFail = 5, keySecret = 'QSjL6p38h9', amongTime = 60 , urlProtect = baseDir.."url-protect/js.txt"},
 
 	-- 主动防御,发送cookie验证模块。此模块会向访客发送cookie，然后等待访客返回正确的cookie，此模块利用cc控制端无法支持cookie的特点，来识别cc攻击,当有必要时才建议开启
 	-- state : 为此模块的状态，表示开启或关闭，可选值为On或Off;
